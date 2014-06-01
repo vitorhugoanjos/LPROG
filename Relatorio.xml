@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="Relatorio.xsl"?>
+
+<relatório id="Relatório"
+   xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+   xmlns='http://www.dei.isep.ipp.pt/lprog'
+   xsi:schemaLocation='http://www.dei.isep.ipp.pt/lprog Relatorio.xsd'>
+
+
+   <páginaRosto>
+
+    <tema>Gestão de Vendas</tema>
+
+    <disciplina id="LPROG">
+        <designação>Linguagens e Programação</designação>
+        <anoCurricular>2</anoCurricular>
+        <sigla>LPROG</sigla>
+    </disciplina>
+
+    <autor id="autor_1">
+        <nome>Vitor Hugo Miranda Garcia Reis dos Anjos</nome>
+        <número>1100685</número>
+        <mail>1100685@isep.ipp.pt</mail>
+    </autor>
+
+    <data>2014-05-28</data>
+
+    <turmaPL>2DK</turmaPL> <!--ALTERAR PARA 2DL MAIS TARDE, A EXPRESSÃO REGULAR NÃO DEIXA INTRODUZIR L-->
+
+    <profPL>JSM</profPL>
+
+    <logotipoDEI>img/dei.png</logotipoDEI>
+
+</páginaRosto>
+
+<corpo id="corpo_1">
+
+    <introdução tituloSecção="Introdução" id="SEC001">
+
+        <bloco>
+            <paragráfo>
+                O presente relatório refere-se ao trabalho prático realizado no âmbito da disciplina <itálico>LPROG</itálico>, do segundo ano curricular da <sublinhado>LEI</sublinhado>.
+            </paragráfo>
+
+            <paragráfo>
+                Este trabalho foi desenvolvido durante o período de 30 de Abril a 01 de Junho de 2014.
+            </paragráfo>
+
+            <paragráfo>
+                O referido trabalho teve como objectivos aplicar as tecnologias que foram ensinadas na disciplina (<itálico>XML, XSD, XSLT, XPATH e HTML</itálico>), mais especificamente:
+            </paragráfo>
+
+            <listaItems>
+                <item>Definir uma representação XML para um domínio específico</item>
+                <item>Definir a sintaxe dessa linguagem através do respectivo XML Schema (XSD)</item>
+                <item>Criar instâncias (documentos XML) e validá-las de acordo com o XSD</item>
+                <item>Fazer transformações ao documento XML (para XML e HTML) usando XSLT e XPath</item>        
+            </listaItems>
+
+            <paragráfo>
+                Além dos objectivos propostos pelo enunciado foi também atribuído um tema por turma. Para a turma <bold>2DL</bold> foi atribuído o tema "Gestão de Vendas".
+                Este tema estabelece a necessidade da criação de um sistema de gestão de informação para uma empresa de peças para reparação automóvel. Pretende-se que toda a informação relevante associada à empresa seja armazenada num ficheiro <itálico>XML</itálico> que seja validado por um ficheiro <itálico>XSD</itálico>.
+            </paragráfo>
+
+            <paragráfo>
+                Devem ser criadas diversas transformações <itálico>XSLT</itálico> para páginas <itálico>XHTML</itálico> que permitam visualizar as peças em stock, a informação dos clientes e das compras. Devem também ser gerados ficheiros <itálico>XML</itálico> com filtros aplicados ao ficheiro original.
+            </paragráfo>
+
+        </bloco>
+
+    </introdução>
+
+
+    <secções>
+
+        <análise tituloSecção="Análise" id="SEC002">
+            <bloco>
+                <paragráfo>
+                    Desde a primeira leitura do tema, foram encontradas algumas <bold>palavras-chave</bold> como:
+                </paragráfo>
+
+                <listaItems>
+                    <item>Peças</item>
+                    <item>Clientes</item>
+                    <item>Vendas</item>
+                    <item>Stock</item>
+                    <item>Tipo</item>
+                    <item>Preço</item>
+                </listaItems>
+
+                <paragráfo>
+                    A primeira tentativa passou por ter várias vendas, cada uma das quais com a informação do cliente, das peças e suas características. Depois de preencher o XML com esta estrutura, deparei-me com um ficheiro <itálico>XML</itálico> confuso, em que peças e clientes se repetiam várias vezes.
+                </paragráfo>
+
+                <paragráfo>
+                    De modo a corrigir esta situação decidi mudar a estrutura, que passou a ser a seguinte:
+                </paragráfo>
+
+                <figura src="img/main_estrutura.png" descrição="estrutura_fechada"/>                  
+
+
+            </bloco>
+
+            <bloco>
+                <paragráfo>
+                    Desta forma o elemento <bold>vendas</bold> ficou composto por <itálico>[1..*]</itálico> elementos <bold>venda</bold>.
+                    Cada venda tem apenas a informação do <bold>cliente</bold>, da <bold>loja</bold> onde foi efetuada e da <bold>data</bold>. Tem ainda um atributo <bold>id</bold> com um papel muito importante nesta estrutura pois vai ser a relação entre a venda e a restante informação.
+                </paragráfo>
+
+                <figura src="img/estrutura_vendas.png" descrição="estrutura_vendas"/>
+            </bloco>
+
+
+            <bloco>
+                <paragráfo>
+                    Quanto ao elemento <bold>detalhes_vendas</bold> que é constituído por <itálico>[1..*]</itálico> elementos <bold>detalhes_venda</bold>, tem apenas guardado o <bold>id</bold> da <bold>peça</bold> que foi comprada e o <bold>id</bold> da <bold>venda</bold> a que está relacionado. Esta forma eliminou a repetição de peças no ficheiro XML.
+                </paragráfo>
+
+                <figura src="img/estrutura_detalhes_vendas.png" descrição="estrutura_detalhes_vendas"/>
+            </bloco>
+
+            <bloco>
+                <paragráfo>
+                    O elemento <bold>detalhes_pecas</bold> guarda <itálico>[1..*]</itálico> elementos <bold>detalhes_peca</bold> que é o elemento mais completo.
+                    Usa um atributo importante, o <bold>idPeca</bold> que faz a relação com <bold>detalhes_venda</bold> e um atributo <bold>tag_color</bold> que está proibido de ser usado.
+                    Possui também algums elementos que não necessitam explicação e o elemento <bold>descricao</bold> que é <itálico>mixed-content</itálico> e ainda o elemento <bold>stocks</bold> que detem a informação da disponibilidade da peça em cada loja.
+                </paragráfo>
+
+                <figura src="img/estrutura_detalhes_pecas.png" descrição="estrutura_detalhes_pecas"/>
+            </bloco>
+
+            <bloco>
+                <paragráfo>
+                    O elemento <bold>detalhes_clientes</bold> contém <itálico>[1..*]</itálico> elementos <bold>detalhes_cliente</bold> que guarda a informação de cada cliente assim como o seu <bold>idCliente</bold>, atributo importante para relacionar a estrutura.
+                </paragráfo>
+
+                <figura src="img/estrutura_detalhes_clientes.png" descrição="estrutura_detalhes_clientes"/>
+            </bloco>
+
+            <bloco>
+                <paragráfo>
+                    Por fim, é possível analisar as relações que referi até agora na seguinte imagem:
+                </paragráfo>
+
+                <figura src="img/estrutura_keys.png" descrição="estrutura_keys"/>
+            </bloco>
+
+        </análise>
+
+        <linguagem tituloSecção="Linguagem" id="SEC003">
+            <bloco>
+                <paragráfo>
+                    Para tentar explorar ao máximo o uso da validação com <itálico>XSD</itálico>, apliquei tipos complexos e simples a quase todos os elementos que criei.
+                </paragráfo>
+                <paragráfo>
+                    A começar pelo topo da estrutura, o elemento <bold>venda</bold> tem um atributo <bold>id</bold> que está relacionado com o atributo de <bold>detalhes_venda/@idVenda</bold> da seguinte forma:
+                </paragráfo>
+
+                <codigo id="c1">
+                    <linha>
+                        <![CDATA[<!-- Relação entre id (venda) -->]]>
+                    </linha>
+                    <linha>
+                        <![CDATA[<xsd:key name="vendas_key">]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<xsd:selector xpath="./gv:vendas/gv:venda"/>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<xsd:field xpath="@id"/>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[</xsd:key>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<!-- e idVenda (detalhes_venda)  -->]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<xsd:keyref name="detalhes_venda_keyref" refer="gv:vendas_key">]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<xsd:selector xpath="./gv:detalhes_vendas/gv:detalhes_venda"/>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<xsd:field xpath="@idVenda"/>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[</xsd:keyref>]]>
+                    </linha>                 
+                </codigo>
+
+                <paragráfo>
+                    Um exemplo do XML válido para esta relação é:
+                </paragráfo>
+
+                <codigo id="c2">
+                    <linha>
+                        <![CDATA[ <venda id="1">]]>
+                    </linha>
+                    <linha>
+                        <![CDATA[<data>2014-12-03</data>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<loja>Loja-Porto</loja>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[<cliente>1</cliente>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[ </venda>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[ <detalhes_venda idVenda="1">]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[ <peca id="1"/>]]>
+                    </linha> 
+                    <linha>
+                        <![CDATA[</detalhes_venda>]]>
+                    </linha> 
+                </codigo>
+
+                <paragráfo>
+                    Na minha opinião, estas relações foram muito importantes para a estrutura do XML pois evitam a repetição de informação.
+                </paragráfo>
+
+                <paragráfo>
+                    Para os elementos <bold>loja</bold>, <bold>tipo</bold> (peça) e <bold>marca</bold>, defini enumerações <citação>RefW_3</citação> com o código:
+                </paragráfo>
+                <codigo id="c3">
+                    <linha>
+                        <![CDATA[ <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="a"/>
+                        <xsd:enumeration value="b"/>
+                    </xsd:restriction>]]>
+                </linha> 
+            </codigo>
+
+            <paragráfo>
+                Para o elemento <bold>sexo</bold> (cliente) só permito a opção <itálico>Masculino</itálico> ou <itálico>Feminino</itálico> com a seguinte expressão regular:
+            </paragráfo>
+
+            <codigo id="c4">
+                <linha>
+                    <![CDATA[ <xsd:pattern value="Masculino|Feminino"/>]]>
+                </linha> 
+            </codigo>
+
+            <paragráfo>
+                Já o tamanho do elemento <bold>nome</bold> (peça) está limitado a 30 caracteres com a seguinte restrição:
+            </paragráfo>
+
+            <codigo id="c5">
+                <linha>
+                    <![CDATA[ <xsd:maxLength value="30" />]]>
+                </linha> 
+            </codigo>
+        </bloco>
+    </linguagem>
+
+    <transformações tituloSecção="Transformações" id="SEC004">
+        <bloco>
+            <paragráfo>
+                Com uma abordagem exaustiva, decidi que as minhas transformações para HTML não iriam apenas filtrar informação. Cada transformação para HTML, apresenta também toda a informação que entendi fazer sentido neste sistema de <bold>gestão de vendas</bold>.
+                Deste modo apresento então três transformações:
+            </paragráfo>
+        </bloco>
+
+        <bloco>
+            <paragráfo>
+                <bold>Listagem de vendas:</bold>
+            </paragráfo>
+            <paragráfo>
+                Esta transformação visa listar todas as vendas registadas por ordem crescente da data,
+                 que compilam vários dados, como se pode verificar na imagem exemplo:
+            </paragráfo>
+
+            <figura src="img/exemplo_vendas.png" descrição="exemplo_vendas"/>
+        </bloco>
+
+        <bloco>
+            <paragráfo>
+                <bold>Listagem de clientes:</bold>
+            </paragráfo>
+            <paragráfo>
+                Esta transformação lista todos os clientes registados por ordem crescente do nome e decrescente dos anos de afiliação.
+                Por cada cliente, para além da informação pessoal que estava registada no XML, também apresento o número de compras efetuadas na loja, o montante gasto e a tabela de todas as compras efetuadas. Ficou ainda acessível por cada peça na tabela, um botão de informação (que mostra mais detalhes sobre a  peça).
+            </paragráfo>
+
+            <figura src="img/exemplo_clientes.png" descrição="exemplo_clientes"/>
+
+            <paragráfo>
+                No desenvolvimento desta transformação encontrei o meu maior desafio, provavelmente devido à estrutura do meu XML, que foi calcular o montante total gasto por cada cliente.
+            </paragráfo>
+
+            <paragráfo>    
+                Na minha primeira abordagem tentei simplesmente usar a função <bold>sum</bold> e a princípio pensei que tivesse resultado, pois para um cliente que comprasse três peças diferentes, o total era o esperado. No entanto, caso fossem três peças iguais, a função calculava erradamente o valor total correspondente a apenas uma peça.
+            </paragráfo>
+
+            <figura src="img/primeira_abordagem_montante_total.png" descrição="primeira_abordagem_montante_total"/>
+
+            <paragráfo>    
+                Pesquisei um pouco sobre o problema e a conclusão tirada foi que desta forma estava a somar instâncias únicas das peças.
+                Tentei então fazer a <bold>soma de forma recursiva</bold>. Esta foi certamente a parte do trabalho mais difícil mas também a mais estimulante e a que mais gosto deu terminar.
+            </paragráfo>
+
+            <figura src="img/recursiva_soma_clientes.png" descrição="recursiva_soma_clientes"/>
+        </bloco>
+
+        <bloco>
+            <paragráfo>
+                <bold>Listagem de peças:</bold>
+            </paragráfo>
+            <paragráfo>
+                Por defeito, esta transformação lista todas as peças por ordem alfabética e por preço, mas esta página tem <bold>seis opções de ordenação</bold> das peças:
+            </paragráfo>
+
+            <figura src="img/exemplo_ordenacao.png" descrição="exemplo_ordenacao"/>
+        </bloco>
+
+        <bloco>
+
+            <paragráfo>
+                <bold>NOTA:</bold> Todas as ordenações foram feitas com XSL, o <itálico>javascript</itálico> foi usado apenas para mostrar e esconder <itálico>divs</itálico>.
+            </paragráfo>
+
+            <paragráfo>
+                Além das ordenações, é possível ver todos os detalhes de cada peça, assim como o número de unidades vendidas e um rating baseado  nas suas vendas para além do dinheiro gerado.
+                É também possível verificar a disponibilidade de cada peça em todas as lojas.
+            </paragráfo>
+
+            <figura src="img/exemplo_pecas.png" descrição="exemplo_pecas"/>
+
+            <figura src="img/exemplo_disponibilidade.png" descrição="exemplo_disponibilidade"/>
+        </bloco>
+
+        <bloco>
+            <paragráfo>
+                <bold>Transformação para XML (clientes com 5 ou mais anos de afiliação, que tenham gasto mais que 10 euros em compras):</bold>
+            </paragráfo>
+            <paragráfo>
+                Esta transformação cria um novo XML onde constam apenas os clientes com cinco ou mais anos de afiliação e que tenham gasto mais do que 10€ em compras.
+                A estrutura deste XML é diferente e a lista de compras aparece associada ao respectivo cliente.
+            </paragráfo>
+
+            <paragráfo>
+                <sublinhado>Excerto de um ficheiro gerado com esta transformação</sublinhado>
+            </paragráfo>
+
+            <figura src="img/exemplo_xml.png" descrição="exemplo_xml"/>
+        </bloco>
+
+        <bloco>
+            <paragráfo>
+                <bold>Transformação para XML (listagem das peças que já foram vendidas e a lista de quem as comprou):</bold>
+            </paragráfo>
+            <paragráfo>
+                Esta transformação cria um novo XML onde constam apenas as peças que já foram vendidas.
+                A estrutura deste XML é diferente da do ficheiro original e por cada peça vendida há uma lista de clientes que as compraram, assim como o número de unidades.
+            </paragráfo>
+
+            <paragráfo>
+                <sublinhado>Excerto de um ficheiro gerado com esta transformação</sublinhado>
+            </paragráfo>
+
+            <figura src="img/excerto_filtro2.png" descrição="excerto_filtro2"/>
+        </bloco>
+
+    </transformações>
+
+</secções>
+
+<conclusão tituloSecção="Conclusão" id="SEC005">
+    <bloco>
+        <paragráfo>
+            Percebe-se com este desafio, que o meu conhecimento sobre <itálico> XML, XSD e XSLT </itálico> evoluiu consideravelmente. À medida que fui avançando com o trabalho, explorando-o de forma exaustiva, fui ganhando conhecimentos e aplicando novas ideias de modo a terminá-lo com sucesso e agrado.           
+        </paragráfo>
+
+        <paragráfo>
+            Em virtude do que foi mencionado, posso afirmar que este trabalho teve grande importância na minha aprendizagem em <itálico> XML, XSD e XSLT </itálico>, tendo em conta que me transportou para além das minhas expectativas, que me deixou bastante satisfeito com o resultado final.
+        </paragráfo>
+
+        <listaItems>
+            <item label="autor:Leonardo da Vinci">Aprender é a única coisa de que a mente nunca se cansa, nunca tem medo e nunca se arrepende.</item>
+        </listaItems>
+
+    </bloco>
+</conclusão>
+
+
+<referências>
+
+    <refBibliográfica idRef="RefB_1">
+        <título>XML Pocket Reference</título>
+        <dataPublicação>April 2001</dataPublicação>
+        <autor>Robert Eckstein</autor>
+        <autor>Michel Casablanca</autor>
+    </refBibliográfica>
+
+    <refBibliográfica idRef="RefB_2">
+        <título>XSLT, Second Edition</título>
+        <dataPublicação>June 2008</dataPublicação>
+        <autor>Doug Tidwell</autor>
+    </refBibliográfica>
+
+    <refWeb idRef="RefW_1">
+        <URL>http://msdn.microsoft.com/en-us/library/ms912472.aspx</URL>
+        <descrição>O tutorial ajuda a começar a entender rapidamente XSLT ao guiá-lo através do processo de criação de uma solução XSLT</descrição>
+        <consultadoEm>2014-05-10</consultadoEm>
+    </refWeb>
+
+    <refWeb idRef="RefW_2">
+        <URL>http://www.cs.ox.ac.uk/dan.olteanu/tutorials/xslt1.pdf</URL>
+        <descrição>XSLT 1.0 Tutorial</descrição>
+        <consultadoEm>2014-05-15</consultadoEm>
+    </refWeb>
+
+    <refWeb idRef="RefW_3">
+        <URL>https://moodle.isep.ipp.pt/file.php/235451/FichasTP/TP5-XSD.pdf</URL>
+        <descrição>XML-Schemas slides</descrição>
+        <consultadoEm>2014-05-07</consultadoEm>
+    </refWeb>            
+
+</referências>
+
+</corpo>
+
+<anexos tituloSecção="Anexos" id="ANX001">
+    <bloco>
+        <figura src="img/estrutura.png" descrição="estrutura"/>
+    </bloco>
+    <bloco>
+        <figura src="img/estrutura_detalhes_clientes.png" descrição="estrutura_detalhes_clientes"/>
+    </bloco>
+    <bloco>
+        <figura src="img/estrutura_detalhes_pecas.png" descrição="estrutura_detalhes_pecas"/>
+    </bloco>
+    <bloco>
+        <figura src="img/estrutura_detalhes_vendas.png" descrição="estrutura_detalhes_vendas"/>
+    </bloco>
+    <bloco>
+        <figura src="img/estrutura_keys.png" descrição="estrutura_keys"/>
+    </bloco>
+    <bloco>
+        <figura src="img/estrutura_vendas.png" descrição="estrutura_vendas"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_clientes.png" descrição="exemplo_clientes"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_disponibilidade.png" descrição="exemplo_disponibilidade"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_ordenacao.png" descrição="exemplo_ordenacao"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_pecas.png" descrição="exemplo_pecas"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_vendas.png" descrição="exemplo_vendas"/>
+    </bloco>
+    <bloco>
+        <figura src="img/exemplo_xml.png" descrição="exemplo_xml"/>
+    </bloco>
+    <bloco>
+        <figura src="img/excerto_filtro2.png" descrição="excerto_filtro2"/>
+    </bloco>
+    <bloco>
+        <figura src="img/primeira_abordagem_montante_total.png" descrição="primeira_abordagem_montante_total"/>
+    </bloco>
+    <bloco>
+        <figura src="img/recursiva_soma_clientes.png" descrição="recursiva_soma_clientes"/>
+    </bloco>
+
+</anexos>
+
+</relatório>

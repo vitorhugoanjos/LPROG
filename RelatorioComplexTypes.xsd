@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           xmlns="http://www.dei.isep.ipp.pt/lprog"
+           targetNamespace="http://www.dei.isep.ipp.pt/lprog"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="RelatorioSimpleTypes.xsd"/> 
+    
+    <xs:complexType name="TSeccao">
+        <xs:sequence>
+            <xs:element name="bloco" type="TBloco" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="tituloSecção" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="TidSec" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TOutrasSeccoes">
+        <xs:all>
+            <xs:element name="análise" type="TSeccao"/>
+            <xs:element name="linguagem" type="TSeccao"/>
+            <xs:element name="transformações" type="TSeccao"/>
+        </xs:all>
+     </xs:complexType>
+    
+    <xs:complexType name="TBloco">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="paragráfo" type="Tparagrafo" />
+            <xs:element name="listaItems" type="TListaItems"/>
+            <xs:element name="figura" type="TFigura"/>
+            <xs:element name="codigo" type="TCodigo"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="Tparagrafo" mixed="true">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="citação" type="RefRB"/>
+            <xs:element name="bold" type="xs:string"/>
+            <xs:element name="itálico" type="xs:string"/>
+            <xs:element name="sublinhado" type="xs:string"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="TListaItems">
+        <xs:sequence>
+            <xs:element name="item" type="Titem" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Titem">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="label" type="xs:normalizedString" use="optional"/>
+            </xs:extension>
+        </xs:simpleContent>
+        
+    </xs:complexType>
+    
+    <xs:complexType name="TFigura">
+        <xs:attribute name="src" type="xs:anyURI"/>
+        <xs:attribute name="descrição" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TCodigo">
+        <xs:sequence>
+            <xs:element name="linha" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TAluno" mixed="true">
+        <xs:sequence>
+            <xs:element name="nome" type="xs:string"/>
+            <xs:element name="número" type="TNum"/>
+            <xs:element name="mail" type="TEMail"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TDisciplina">
+        <xs:sequence>
+            <xs:element name="designação" type="xs:string"/>
+            <xs:element name="anoCurricular" type="xs:int" fixed="2"/>
+            <xs:element name="sigla" type="xs:string"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TReferencias">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="refBibliográfica" type="TRBib"/>
+            <xs:element name="refWeb" type="TRWeb"/>
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:complexType name="TRBib">
+        <xs:sequence maxOccurs="unbounded">
+             <xs:element name="título" type="xs:string"/>
+            <xs:element name="dataPublicação" type="xs:string"/>
+            <xs:element name="autor" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="idRef" type="TIdRefB" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="TRWeb">
+        <xs:sequence maxOccurs="unbounded">
+            <xs:element name="URL" type="xs:anyURI"/>
+            <xs:element name="descrição" type="xs:string"/>
+            <xs:element name="consultadoEm" type="xs:date"/>
+        </xs:sequence>
+        <xs:attribute name="idRef" type="TIdRefW" use="required"/>
+    </xs:complexType>
+</xs:schema>

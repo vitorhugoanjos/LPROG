@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="ListaPecas.xsl"?>
+<gestao 
+    xmlns="http://xml.dei.isep.ipp.pt/schema/GestaoVendas"
+    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xml.dei.isep.ipp.pt/schema/GestaoVendas GestaoVendas.xsd">
+
+ <!-- Todas as vendas -->
+
+    <vendas cadeia="GestaoVendasISEP">
+        <venda id="1">
+            <data>2014-12-03</data>
+            <loja>Loja-Porto</loja>
+            <cliente>60</cliente>
+        </venda>
+
+        <venda id="2">
+            <data>2014-02-03</data>
+            <loja>Loja-Faro</loja>
+            <cliente>2</cliente>
+        </venda>
+
+        <venda id="3">
+            <data>2014-05-18</data>
+            <loja>Loja-Porto</loja>
+            <cliente>3</cliente>
+        </venda>
+
+        <venda id="4">
+            <data>2014-05-17</data>
+            <loja>Loja-Porto</loja>
+            <cliente>4</cliente>
+        </venda>
+        <venda id="5">
+            <data>2014-12-03</data>
+            <loja>Loja-Porto</loja>
+            <cliente>60</cliente>
+        </venda>
+
+        <venda id="6">
+            <data>2014-05-25</data>
+            <loja>Loja-Porto</loja>
+            <cliente>70</cliente>
+        </venda>
+
+        <venda id="7">
+            <data>2014-05-25</data>
+            <loja>Loja-Porto</loja>
+            <cliente>70</cliente>
+        </venda>
+
+        <venda id="8">
+            <data>2014-05-25</data>
+            <loja>Loja-Porto</loja>
+            <cliente>70</cliente>
+        </venda>
+    </vendas>
+
+    <!-- Detalhes de cada venda -->
+
+    <detalhes_vendas>
+
+        <detalhes_venda idVenda="1">
+            <peca id="1"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="2">
+            <peca id="2"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="3">
+            <peca id="3"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="4">
+            <peca id="4"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="5">
+            <peca id="2"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="6">
+            <peca id="2"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="7">
+            <peca id="2"/>
+        </detalhes_venda>
+
+        <detalhes_venda idVenda="8">
+            <peca id="2"/>
+        </detalhes_venda>
+
+    </detalhes_vendas>
+
+    <!-- Detalhes de cada peça  -->
+
+    <detalhes_pecas>
+        <detalhes_peca idPeca="1">
+            <nome>Escape Remus</nome>
+            <tipo>Escape</tipo>
+            <marca>REMUS</marca>
+            <preco>11.52</preco>
+            <descricao>Da marca <marca>REMUS</marca> ..</descricao>
+            <imagem></imagem>
+            <stocks>
+                <stock loja="Loja-Porto">0</stock>
+                <stock loja="Loja-Braga">50</stock>
+                <stock loja="Loja-Faro">50</stock>
+            </stocks>
+        </detalhes_peca>
+        
+        <detalhes_peca idPeca="2">
+            <nome>Amortecedores Monroe</nome>
+            <tipo>Suspensao</tipo>
+            <marca>MONROE</marca>
+            <preco>12.27</preco>
+            <descricao>Da <marca>MONROE</marca></descricao>
+            <imagem>img/suspensao.png</imagem>
+            <stocks>
+                <stock loja="Loja-Porto">50</stock>
+                <stock loja="Loja-Braga">20</stock>
+                <stock loja="Loja-Faro">50</stock>
+            </stocks>
+        </detalhes_peca>
+
+        <detalhes_peca idPeca="3">
+            <nome>Jantes</nome>
+            <tipo>Acessorios</tipo>
+            <marca>MONROE</marca>
+            <preco>400.00</preco>
+            <descricao>Da <marca>MONROE</marca></descricao>
+            <imagem>img/jantes.png</imagem>
+            <stocks>
+                <stock loja="Loja-Porto">2</stock>
+                <stock loja="Loja-Braga">50</stock>
+                <stock loja="Loja-Faro">50</stock>
+            </stocks>
+        </detalhes_peca>
+
+        <detalhes_peca idPeca="4">
+            <nome>Pneus</nome>
+            <tipo>Acessorios</tipo>
+            <marca>MONROE</marca>
+            <preco>100.00</preco>
+            <descricao>Da <marca>MONROE</marca></descricao>
+            <imagem>img/pneus.png</imagem>
+            <stocks>
+                <stock loja="Loja-Porto">50</stock>
+                <stock loja="Loja-Braga">50</stock>
+                <stock loja="Loja-Faro">10</stock>
+            </stocks>
+        </detalhes_peca>
+        
+        <detalhes_peca idPeca="5">
+            <nome>LâmpadaPneus</nome>
+            <tipo>Acessorios</tipo>
+            <marca>MONROE</marca>
+            <preco>10.00</preco>
+            <descricao>Da <marca>MONROE</marca></descricao>
+            <stocks>
+                <stock loja="Loja-Porto">50</stock>
+                <stock loja="Loja-Braga">50</stock>
+                <stock loja="Loja-Faro">10</stock>
+            </stocks>
+        </detalhes_peca>
+    </detalhes_pecas>
+
+    <!-- Detalhes de cada cliente -->
+
+    <detalhes_clientes>
+
+        <detalhes_cliente idCliente="60">
+            <nome>Manel Pinto</nome>
+            <idade>20</idade>
+            <anos_afiliacao>2</anos_afiliacao>
+            <data_registo>2012-02-03</data_registo>
+            <sexo>Masculino</sexo>
+        </detalhes_cliente>
+
+        <detalhes_cliente idCliente="2">
+            <nome>Manela Silva</nome>
+            <idade>21</idade>
+            <anos_afiliacao>5</anos_afiliacao>
+            <data_registo>2009-02-12</data_registo>
+            <sexo>Feminino</sexo>
+        </detalhes_cliente>
+
+        <detalhes_cliente idCliente="3">
+            <nome>Filomena Garcia</nome>
+            <idade>20</idade>
+            <anos_afiliacao>2</anos_afiliacao>
+            <data_registo>2012-02-05</data_registo>
+            <sexo>Feminino</sexo>
+        </detalhes_cliente>
+
+        <detalhes_cliente idCliente="4">
+            <nome>Joao Pedro</nome>
+            <idade>20</idade>
+            <anos_afiliacao>2</anos_afiliacao>
+            <data_registo>2012-02-05</data_registo>
+            <sexo>Masculino</sexo>
+        </detalhes_cliente>
+
+        <detalhes_cliente idCliente="70">
+            <nome>Rui Anjos</nome>
+            <idade>62</idade>
+            <anos_afiliacao>5</anos_afiliacao>
+            <data_registo>2009-02-05</data_registo>
+            <sexo>Masculino</sexo>
+        </detalhes_cliente>
+
+    </detalhes_clientes>
+
+</gestao>

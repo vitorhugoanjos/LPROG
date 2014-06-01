@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<clientes xmlns:gv="http://xml.dei.isep.ipp.pt/schema/GestaoVendas">
+    <cliente idCliente="2">
+        <nome>Manela Silva</nome>
+        <anos_afiliado>5</anos_afiliado>
+        <registado_em>2009-02-12</registado_em>
+        <compras_efetuadas>1</compras_efetuadas>
+        <montanto_total_gasto>12.27</montanto_total_gasto>
+        <compras>
+            <compra loja="Loja-Faro" data="2014-02-03" id="2">
+                <peca idPeca="2">
+                    <nome>Amortecedores Monroe</nome>
+                    <tipo>Suspensao</tipo>
+                    <marca>MONROE</marca>
+                    <preco>12.27</preco>
+                </peca>
+            </compra>
+        </compras>
+    </cliente>
+    <cliente idCliente="70">
+        <nome>Rui Anjos</nome>
+        <anos_afiliado>5</anos_afiliado>
+        <registado_em>2009-02-05</registado_em>
+        <compras_efetuadas>3</compras_efetuadas>
+        <montanto_total_gasto>423.79</montanto_total_gasto>
+        <compras>
+            <compra loja="Loja-Porto" data="2014-05-25" id="6">
+                <peca idPeca="1">
+                    <nome>Escape Remus</nome>
+                    <tipo>Escape</tipo>
+                    <marca>REMUS</marca>
+                    <preco>11.52</preco>
+                </peca>
+            </compra>
+            <compra loja="Loja-Porto" data="2014-05-25" id="7">
+                <peca idPeca="2">
+                    <nome>Amortecedores Monroe</nome>
+                    <tipo>Suspensao</tipo>
+                    <marca>MONROE</marca>
+                    <preco>12.27</preco>
+                </peca>
+            </compra>
+            <compra loja="Loja-Porto" data="2014-05-25" id="8">
+                <peca idPeca="3">
+                    <nome>Jantes</nome>
+                    <tipo>Acessorios</tipo>
+                    <marca>MONROE</marca>
+                    <preco>400.00</preco>
+                </peca>
+            </compra>
+        </compras>
+    </cliente>
+</clientes>

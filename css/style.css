@@ -1,0 +1,175 @@
+p.um_ponto_cinco_entre_linhas {line-height:150%}
+
+.user-row {
+	margin-nottom: 14px;
+}
+
+.user-row:last-child {
+	margin-bottom: 0;
+}
+
+.dropdown-user {
+	margin: 13px 0;
+	padding: 5px;
+	height: 100%;
+}
+
+.dropdown-user:hover {
+	cursor: pointer;
+}
+
+.table-user-information > tbody > tr {
+	border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+	border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+	border-top: 0;
+}
+
+.hidden{
+	display:collapse;
+}
+
+.bs-docs-header {
+	position: relative;
+	padding: 30px 15px;
+	color: #FFFFFF;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(0,0,0,.1);
+	background-color: #FF7B3C;
+}
+
+.laranja{
+    background-color: #FF7B3C;
+}
+
+.letterpress{
+color: #FFFFF;
+font-size:3.2em;
+text-shadow: 0px 2px 1px #FF9E3E;
+}
+
+.link-compras{
+	padding-bottom: 20px;
+}
+
+.pointer{
+	cursor: pointer;
+}
+.glyphicon-lg
+{
+    font-size:4em
+}
+.info-block
+{
+    border-right:5px solid #E6E6E6;margin-bottom:25px
+}
+.info-block .square-box
+{
+    width:100px;min-height:110px;margin-right:22px;text-align:center!important;background-color:#676767;padding:20px 0
+}
+.info-block.block-info
+{
+    border-color:#20819e
+}
+.info-block.block-info .square-box
+{
+   
+}
+
+.col-item
+{
+    border: 1px solid #E1E1E1;
+    border-radius: 5px;
+    background: #FFF;
+}
+
+.col-item .photo img
+{
+    margin: 0 auto;
+    width: 100%;
+}
+
+.col-item .info
+{
+    padding: 10px;
+    border-radius: 0 0 5px 5px;
+    margin-top: 1px;
+}
+.col-item .price
+{
+    /*width: 50%;*/
+    float: left;
+    margin-top: 5px;
+}
+
+.col-item .price h5
+{
+    line-height: 20px;
+    margin: 0;
+}
+
+.price-text-color
+{
+    color: #219FD1;
+}
+
+.col-item .info .rating
+{
+    color: #777;
+}
+
+.col-item .rating
+{
+    /*width: 50%;*/
+    float: left;
+    font-size: 17px;
+    text-align: right;
+    line-height: 52px;
+    margin-bottom: 10px;
+    height: 52px;
+}
+
+.col-item .separator
+{
+    border-top: 1px solid #E1E1E1;
+}
+
+.clear-left
+{
+    clear: left;
+}
+
+.col-item .separator p
+{
+    line-height: 20px;
+    margin-bottom: 0;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.col-item .separator p i
+{
+    margin-right: 5px;
+}
+.col-item .btn-details
+{
+    cursor: pointer;
+}
+
+.afastado{
+	padding-right: 5px;
+}
+
+.blue{
+	color: #219FD1;
+}
+
+sublinhado{
+    text-decoration:underline;
+}

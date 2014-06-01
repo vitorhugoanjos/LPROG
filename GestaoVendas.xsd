@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://xml.dei.isep.ipp.pt/schema/GestaoVendas"
+   xmlns:gv="http://xml.dei.isep.ipp.pt/schema/GestaoVendas"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+
+   <!-- Elemento root, vendas do tipo TGestao -->
+   <xsd:element name="gestao" type="gv:TGestao">
+
+    <!-- Relação entre id (venda) -->
+    <xsd:key name="vendas_key">
+        <xsd:selector xpath="./gv:vendas/gv:venda"/>
+        <xsd:field xpath="@id"/>
+    </xsd:key>
+
+    <!-- e idVenda (detalhes_venda)  -->
+    <xsd:keyref name="detalhes_venda_keyref" refer="gv:vendas_key">
+        <xsd:selector xpath="./gv:detalhes_vendas/gv:detalhes_venda"/>
+        <xsd:field xpath="@idVenda"/>
+    </xsd:keyref>
+    <!-- -->
+
+    <!-- Relação entre cliente (venda) -->
+    <xsd:key name="cliente_key">
+        <xsd:selector xpath="./gv:detalhes_clientes/gv:detalhes_cliente"/>
+        <xsd:field xpath="@idCliente"/>
+    </xsd:key>
+
+    <!-- e idCliente(detalhes_cliente) -->
+    <xsd:keyref name="detalhes_cliente_keyref" refer="gv:cliente_key">
+        <xsd:selector xpath="./gv:vendas/gv:venda"/>
+        <xsd:field xpath="gv:cliente"/>
+    </xsd:keyref>
+    <!-- -->
+
+    <!-- Relação entre id (detalhes_venda/peca) -->
+    <xsd:key name="peca_key">
+        <xsd:selector xpath="./gv:detalhes_vendas/gv:detalhes_venda/peca"/>
+        <xsd:field xpath="@id"/>
+    </xsd:key>
+
+    <!-- e idPeca(detalhes_peca) -->
+    <xsd:keyref name="detalhes_peca_keyref" refer="gv:peca_key">
+        <xsd:selector xpath="./gv:detalhes_pecas/gv:detalhes_peca"/>
+        <xsd:field xpath="idPeca"/>
+    </xsd:keyref>
+    <!-- -->
+
+</xsd:element>
+
+<!-- Definicao do tipo TGestao -->
+<xsd:complexType name="TGestao">
+    <xsd:sequence>
+        <xsd:element name="vendas" type="gv:TVendas"/>
+        <xsd:element name="detalhes_vendas" type="gv:TDetalhesVendas"/>
+        <xsd:element name="detalhes_pecas" type="gv:TDetalhesPecas"/>
+        <xsd:element name="detalhes_clientes" type="gv:TDetalhesClientes"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<!--Definicao de todos os tipos complexos usados em TGestao -->
+
+<!-- Definicao do tipo TVendas -->
+<xsd:complexType name="TVendas">
+    <xsd:sequence>
+        <xsd:element name="venda" type="gv:TVenda" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="cadeia" type="xsd:string" fixed="GestaoVendasISEP"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesVendas -->
+<xsd:complexType name="TDetalhesVendas">
+    <xsd:sequence>
+        <xsd:element name="detalhes_venda" type="gv:TDetalhesVenda" maxOccurs="unbounded"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesPecas -->
+<xsd:complexType name="TDetalhesPecas">
+    <xsd:sequence>
+        <xsd:element name="detalhes_peca" type="gv:TDetalhesPeca" maxOccurs="unbounded"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesClientes -->
+<xsd:complexType name="TDetalhesClientes">
+    <xsd:sequence>
+        <xsd:element name="detalhes_cliente" type="gv:TDetalhesCliente" maxOccurs="unbounded"/>
+    </xsd:sequence>
+</xsd:complexType>
+
+<!-- -->
+
+<!-- Definicao do tipo TVenda -->
+<xsd:complexType name="TVenda">
+    <xsd:sequence>
+        <xsd:element name="data" type="xsd:date"/>
+        <xsd:element name="loja" type="gv:TLoja"/>
+        <xsd:element name="cliente" type="xsd:positiveInteger"/>
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:positiveInteger"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesVenda -->
+<xsd:complexType name="TDetalhesVenda">
+    <xsd:sequence>
+        <xsd:element name="peca" type="gv:TPeca"/>
+    </xsd:sequence>
+    <xsd:attribute name="idVenda" type="xsd:positiveInteger" use="required"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesPeca -->
+<xsd:complexType name="TDetalhesPeca">
+    <xsd:sequence>
+        <xsd:element name="nome" type="gv:TNomePeca"/>
+        <xsd:element name="tipo" type="gv:TTipoPeca"/>
+        <xsd:element name="marca" type="gv:TMarcaPeca"/>
+        <xsd:element name="modelo" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="preco" type="gv:TPrecoPeca"/>
+        <xsd:element name="descricao" type="gv:TDescricaoPeca"/>
+        <xsd:element name="imagem" type="xsd:string" default="img/default.png" minOccurs="0"/>
+        <xsd:element name="stocks" type="gv:TStocks" maxOccurs="1"/>
+    </xsd:sequence>
+    <xsd:attribute name="idPeca" type="xsd:positiveInteger" use="required"/>
+    <xsd:attribute name="tag_color" type="xsd:string" use="prohibited"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TDetalhesCliente -->
+<xsd:complexType name="TDetalhesCliente">
+    <xsd:sequence>
+        <xsd:element name="nome" type="gv:TNomeCliente"/>
+        <xsd:element name="idade" type="xsd:positiveInteger"/>
+        <xsd:element name="anos_afiliacao" type="xsd:positiveInteger"/>
+        <xsd:element name="data_registo" type="xsd:date"/>
+        <xsd:element name="sexo" type="gv:TSexo"/>
+    </xsd:sequence>
+    <xsd:attribute name="idCliente" type="xsd:positiveInteger" use="required"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TLoja -->
+<xsd:simpleType name="TLoja">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Loja-Braga"/>
+        <xsd:enumeration value="Loja-Porto"/>
+        <xsd:enumeration value="Loja-Faro"/>
+    </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Definicao do tipo TPeca -->
+<xsd:complexType name="TPeca">
+    <xsd:attribute name="id" type="xsd:positiveInteger" use="required"/>
+</xsd:complexType>
+
+<!-- Definicao do tipo TTipoPeca -->
+<xsd:simpleType name="TTipoPeca">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="Travagem"/>
+        <xsd:enumeration value="Filtracao"/>
+        <xsd:enumeration value="Suspensao"/>
+        <xsd:enumeration value="Compartimento do motor"/>
+        <xsd:enumeration value="Acessorios"/>
+        <xsd:enumeration value="Escape"/>
+        <xsd:enumeration value="Sistema Eletrico"/>
+        <xsd:enumeration value="Ar Condicionado"/>
+        <xsd:enumeration value="Transmissao"/>
+        <xsd:enumeration value="Fechaduras"/>
+    </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Definicao do tipo TNomePeca -->
+<xsd:simpleType name="TNomePeca">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="30" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Definicao do tipo TMarcaPeca -->
+<xsd:simpleType name="TMarcaPeca">
+    <xsd:restriction base="xsd:string">
+        <xsd:enumeration value="MONROE"/>
+        <xsd:enumeration value="REMUS"/>
+        <xsd:enumeration value="BOLK"/>
+        <xsd:enumeration value="BENDIX"/>
+        <xsd:enumeration value="VALEO"/>
+        <xsd:enumeration value="BREMBRO"/>
+        <xsd:enumeration value="CASTROL"/>
+        <xsd:enumeration value="CONTINENTAL"/>
+        <xsd:enumeration value="LUK"/>
+        <xsd:enumeration value="SKF"/>
+    </xsd:restriction>
+</xsd:simpleType>
+
+<!-- Definicao do tipo TPrecoPeca -->
+<xsd:simpleType name="TPrecoPeca">
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="[0-9]+\.[0-9][0-9]"/>
+    </xsd:restriction>
+</xsd:simpleType> 
+
+<!-- Definicao do tipo TDescricaoPeca -->
+<xsd:complexType name="TDescricaoPeca" mixed="true">
+    <xsd:all>
+        <xsd:element name="nome" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="tipo" type="gv:TTipoPeca" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="marca" type="gv:TMarcaPeca" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="modelo" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+        <xsd:element name="preco" type="gv:TPrecoPeca" minOccurs="0" maxOccurs="1"/>
+    </xsd:all>
+</xsd:complexType>
+
+<!-- Definicao do tipo TStocks -->
+<xsd:complexType name="TStocks">
+    <xsd:sequence>
+        <xsd:element name="stock" type="gv:TStock" minOccurs="3" maxOccurs="3"/>
+    </xsd:sequence>        
+</xsd:complexType>
+
+<!-- Definicao do tipo TStock -->
+<xsd:complexType name="TStock">
+    <xsd:simpleContent>
+        <xsd:extension base="xsd:decimal">
+            <xsd:attribute name="loja" type="gv:TLoja" use="required"/>
+        </xsd:extension>
+    </xsd:simpleContent>
+</xsd:complexType>
+
+<!-- Definicao do tipo TNomeCliente -->
+<xsd:simpleType name="TNomeCliente">
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="[A-Z][a-z]{1,7} [A-Z][a-z]{1,7}"/>
+    </xsd:restriction>
+</xsd:simpleType> 
+
+<!-- Definicao do tipo TSexo -->
+<xsd:simpleType name="TSexo">
+    <xsd:restriction base="xsd:string">
+        <xsd:pattern value="Masculino|Feminino"/>
+    </xsd:restriction>
+</xsd:simpleType> 
+
+</xsd:schema>

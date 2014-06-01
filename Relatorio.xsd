@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.dei.isep.ipp.pt/lprog" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.dei.isep.ipp.pt/lprog" 
+           elementFormDefault="qualified">
+
+  <xs:include schemaLocation="RelatorioSimpleTypes.xsd"/> 
+  <xs:include schemaLocation="RelatorioComplexTypes.xsd"/>
+    
+  <xs:element name="relatório" type="TRelatorio"/>
+
+  <xs:complexType name="TRelatorio">
+    <xs:sequence>
+      <xs:element name="páginaRosto" type="TpaginaRosto"/>
+      <xs:element name="corpo" type="TCorpo"/>
+      <xs:element name="anexos" type="TSeccao" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:ID" use="required"/>
+  </xs:complexType>
+
+    <xs:complexType name="TpaginaRosto">
+      <xs:sequence>
+        <xs:element name="tema" type="xs:string"/>
+        <xs:element name="disciplina" type="TDisciplina"/>
+        <xs:element name="autor" type="TAluno" maxOccurs="3"/>
+        <xs:element name="data" type="xs:date"/>
+        <xs:element name="turmaPL" type="TTurma"/>
+        <xs:element name="profPL" type="TProfPL"/>
+        <xs:element name="logotipoDEI" type="xs:anyURI"/>
+      </xs:sequence>
+    </xs:complexType>
+ 
+  <xs:complexType name="TCorpo">
+    <xs:sequence>
+      <xs:element name="introdução" type="TSeccao"/>
+      <xs:element name="secções" type="TOutrasSeccoes"/>
+      <xs:element name="conclusão" type="TSeccao"/>
+      <xs:element name="referências" type="TReferencias"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required"/>
+  </xs:complexType>
+
+
+
+
+</xs:schema>
